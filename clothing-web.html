@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StyleSphere | Premium Clothing</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #a29bfe;
+            --dark: #2d3436;
+            --darker: #1e272e;
+            --light: #f5f6fa;
+            --success: #00b894;
+            --danger: #d63031;
+        }
+        
+        body {
+            background-color: var(--darker);
+            color: var(--light);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .navbar {
+            background-color: var(--dark) !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--primary) !important;
+        }
+        
+        .nav-link {
+            color: var(--light) !important;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary) !important;
+        }
+        
+        .card {
+            background-color: var(--dark);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 20px;
+            height: 100%;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .card-img-top {
+            height: 250px;
+            object-fit: cover;
+        }
+        
+        .card-title {
+            color: var(--primary);
+        }
+        
+        .card-text {
+            color: var(--light);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            border-color: var(--primary);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary);
+            border-color: var(--secondary);
+        }
+        
+        .badge {
+            background-color: var(--danger);
+        }
+        
+        .hero-section {
+            background: linear-gradient(rgba(45, 52, 54, 0.8), rgba(45, 52, 54, 0.8)), 
+                        url('https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/16367de6-67e1-40f0-8854-fbc2d4eb41d7.png') center/cover no-repeat;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+        }
+        
+        .footer {
+            background-color: var(--dark);
+            padding: 30px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer-links a {
+            color: var(--light);
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        /* Product Detail Page Styles */
+        .product-detail {
+            padding: 50px 0;
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        
+        .product-thumbnails img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            margin-right: 10px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .product-thumbnails img:hover, .product-thumbnails img.active {
+            border-color: var(--primary);
+        }
+        
+        .product-title {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .product-price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .product-description {
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+        
+        .size-options .btn {
+            margin-right: 10px;
+            margin-bottom: 10px;
+            background-color: var(--dark);
+            color: var(--light);
+            border: 1px solid var(--light);
+        }
+        
+        .size-options .btn.active {
+            background-color: var(--primary);
+            border-color: var(--primary);
+        }
+        
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .quantity-selector button {
+            background-color: var(--dark);
+            color: var(--light);
+            border: 1px solid var(--light);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .quantity-selector input {
+            width: 60px;
+            height: 40px;
+            text-align: center;
+            background-color: var(--dark);
+            color: var(--light);
+            border: 1px solid var(--light);
+            margin: 0 10px;
+        }
+        
+        /* Payment Section */
+        .payment-section {
+            background-color: var(--dark);
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 50px;
+        }
+        
+        .payment-section h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .payment-icon {
+            font-size: 2rem;
+            margin-right: 10px;
+            color: var(--light);
+        }
+        
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .cart-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            margin-right: 20px;
+        }
+        
+        .cart-total {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 20px;
+        }
+        
+        /* Cart Notification */
+        .cart-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .product-image {
+                height: 300px;
+            }
+            
+            .product-title {
+                font-size: 2rem;
+                margin-top: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Page -->
+    <div id="main-page">
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+            <div class="container">
+                <a class="navbar-brand" href="#">StyleSphere</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Men</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Women</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Kids</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link cart-toggler" href="#" onclick="toggleCart()"><i class="fas fa-shopping-cart"></i> <span class="badge rounded-pill" id="cart-count">0</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-content text-white">
+                <h1>Elevate Your Style</h1>
+                <p class="lead">Discover our premium collection of designer clothing</p>
+                <a href="#" class="btn btn-primary btn-lg mt-3">Shop Now</a>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section class="container py-5">
+            <h2 class="text-center mb-5">Featured Products</h2>
+            <div class="row">
+                <!-- Product 1 -->
+                <div class="col-md-4">
+                    <div class="card product-card" data-id="1">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/cc37a7f0-19a6-4635-834e-f9a4fe85d1f2.png" class="card-img-top" alt="Slim-fit black blazer with notch lapels, perfect for formal occasions">
+                        <div class="card-body">
+                            <h5 class="card-title">Premium Blazer</h5>
+                            <p class="card-text">Elegant black blazer with premium fabric</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="price">$129.99</span>
+                                <button class="btn btn-primary add-to-cart">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="col-md-4">
+                    <div class="card product-card" data-id="2">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/4aa7891e-f8fd-4841-870b-8e043846d4ce.png" class="card-img-top" alt="White cotton t-shirt with minimalist design and crew neck">
+                        <div class="card-body">
+                            <h5 class="card-title">Classic Tee</h5>
+                            <p class="card-text">100% organic cotton t-shirt</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="price">$24.99</span>
+                                <button class="btn btn-primary add-to-cart">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="col-md-4">
+                    <div class="card product-card" data-id="3">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/653a3a33-a4fb-4aca-9ff2-3123b94e1c6e.png" class="card-img-top" alt="Dark denim jeans with slim fit and distressed detailing">
+                        <div class="card-body">
+                            <h5 class="card-title">Denim Jeans</h5>
+                            <p class="card-text">Slim fit premium denim jeans</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="price">$89.99</span>
+                                <button class="btn btn-primary add-to-cart">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 4 -->
+                <div class="col-md-4">
+                    <div class="card product-card" data-id="4">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/56034b11-c224-4433-97b0-0d692a17bd0e.png" class="card-img-top" alt="Floral summer dress with thin straps and flowing skirt">
+                        <div class="card-body">
+                            <h5 class="card-title">Floral Dress</h5>
+                            <p class="card-text">Lightweight summer floral dress</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="price">$59.99</span>
+                                <button class="btn btn-primary add-to-cart">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 5 -->
+                <div class="col-md-4">
+                    <div class="card product-card" data-id="5">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/33580de2-15ac-4fab-9a80-999640d544c6.png" class="card-img-top" alt="Sporty gray hoodie with drawstring hood and kangaroo pocket">
+                        <div class="card-body">
+                            <h5 class="card-title">Athletic Hoodie</h5>
+                            <p class="card-text">Comfy fleece-lined hoodie</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="price">$49.99</span>
+                                <button class="btn btn-primary add-to-cart">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 6 -->
+                <div class="col-md-4">
+                    <div class="card product-card" data-id="6">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/ef2ba96e-b7d9-44e2-9bc9-68551e214c48.png" class="card-img-top" alt="Gray slim-fit wool sweater with subtle textured pattern">
+                        <div class="card-body">
+                            <h5 class="card-title">Wool Sweater</h5>
+                            <p class="card-text">Warm merino wool sweater</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="price">$79.99</span>
+                                <button class="btn btn-primary add-to-cart">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h5>StyleSphere</h5>
+                        <p>Premium clothing for the modern individual</p>
+                    </div>
+                    <div class="col-md-4">
+                        <h5>Quick Links</h5>
+                        <ul class="list-unstyled footer-links">
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Contact</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Terms & Conditions</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <h5>Connect With Us</h5>
+                        <div class="social-icons">
+                            <a href="#" class="me-2"><i class="fab fa-facebook-f"></i></a>
+                            
+                            <a href="https://www.instagram.com/rahidas_18?igsh=MW81dzRqOTlwanBxcw==" class="me-2"><i class="fab fa-instagram"></i></a>
+                            
+                        </div>
+                    </div>
+                </div>
+                <hr class="mt-4">
+                <div class="text-center">
+                    <p class="mb-0"> present by Raidas Talsaniya.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Shopping Cart (Hidden by default) -->
+    <div id="cart-page" style="display: none;">
+        <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+            <div class="container">
+                <a class="navbar-brand" href="#">StyleSphere</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showMainPage()">Back to Shop</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container my-5">
+            <h2 class="mb-4">Your Shopping Cart</h2>
+            <div id="cart-items-container">
+                <!-- Cart items will be dynamically inserted here -->
+            </div>
+            <div class="text-end mt-4">
+                <h4>Total: $<span id="cart-total">0.00</span></h4>
+                <button class="btn btn-primary mt-3" onclick="checkout()">Proceed to Checkout</button>
+                <button class="btn btn-outline-light mt-3 ms-2" onclick="showMainPage()">Continue Shopping</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Detail Page (Hidden by default) -->
+    <div id="product-detail-page" style="display: none;">
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+            <div class="container">
+                <a class="navbar-brand" href="#">StyleSphere</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDetail">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDetail">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showMainPage()">Back to Shop</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link cart-toggler" href="#" onclick="toggleCart()"><i class="fas fa-shopping-cart"></i> <span class="badge rounded-pill" id="cart-count-detail">0</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Product Detail Section -->
+        <section class="product-detail container">
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/730e9fcf-700c-4179-9182-1d06cf70428a.png" class="product-image img-fluid" alt="Detailed view of the product" id="main-product-image">
+                    <div class="product-thumbnails mt-3">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/f681cdf3-70a3-43be-80b3-1e2666901d38.png" alt="Front view of the product" class="img-thumbnail active" onclick="changeImage(this)">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/2f95632d-c33d-4e53-9ba5-dd422f1bdbdd.png" alt="Side view of the product" class="img-thumbnail" onclick="changeImage(this)">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/83a5fab5-234f-41f2-9d02-803ea57cb36b.png" alt="Detailed close-up of fabric texture" class="img-thumbnail" onclick="changeImage(this)">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/0270b85c-b5ec-4e1f-a2e1-0532e370d78b.png" alt="Model wearing the product" class="img-thumbnail" onclick="changeImage(this)">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <h1 class="product-title" id="detail-product-title">Premium Blazer</h1>
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="me-3">
+                            <span class="product-price" id="detail-product-price">$129.99</span>
+                        </div>
+                        <div>
+                            <span class="text-success"><i class="fas fa-check-circle"></i> In Stock</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <div class="mb-2">
+                            <span class="fw-bold">Color:</span> Black
+                        </div>
+                        <div class="d-flex">
+                            <div class="color-option me-2 rounded-circle" style="width: 30px; height: 30px; background-color: #000; border: 2px solid var(--light);"></div>
+                            <div class="color-option me-2 rounded-circle" style="width: 30px; height: 30px; background-color: #2d3436; border: 2px solid var(--dark);"></div>
+                            <div class="color-option me-2 rounded-circle" style="width: 30px; height: 30px; background-color: #6c5ce7; border: 2px solid var(--dark);"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <span class="fw-bold">Size:</span>
+                        <div class="size-options mt-2">
+                            <button type="button" class="btn btn-sm active">XS</button>
+                            <button type="button" class="btn btn-sm">S</button>
+                            <button type="button" class="btn btn-sm">M</button>
+                            <button type="button" class="btn btn-sm">L</button>
+                            <button type="button" class="btn btn-sm">XL</button>
+                        </div>
+                    </div>
+                    
+                    <div class="product-description">
+                        <p>Elevate your formal wardrobe with our premium black blazer. Made from high-quality wool blend fabric, this blazer features notch lapels, flap pockets, and a single vent for a polished silhouette.</p>
+                        <p>Perfect for business meetings, weddings, or any occasion that calls for sophisticated style. The slim fit design enhances your physique while maintaining comfort throughout the day.</p>
+                        <ul>
+                            <li>55% Wool, 45% Polyester</li>
+                            <li>Dry clean only</li>
+                            <li>Two-button closure</li>
+                            <li>Internal pocket for essentials</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="quantity-selector">
+                        <span class="fw-bold me-3">Quantity:</span>
+                        <button type="button" class="btn minus">-</button>
+                        <input type="number" value="1" min="1" class="form-control">
+                        <button type="button" class="btn plus">+</button>
+                    </div>
+                    
+                    <div class="d-flex">
+                        <button class="btn btn-primary me-3 px-4 py-2 add-to-cart-detail">
+                            <i class="fas fa-shopping-cart me-2"></i> Add to Cart
+                        </button>
+                        <button class="btn btn-outline-light px-4 py-2">
+                            <i class="fas fa-heart me-2"></i> Wishlist
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Payment Section -->
+            <div class="payment-section">
+                <div class="row">
+                    <div class="col-md-7">
+                        <h3>Payment Methods</h3>
+                        <div class="mb-4">
+                            <button class="btn btn-outline-light me-3 mb-2">
+                                <i class="fab fa-cc-visa payment-icon"></i> Visa
+                            </button>
+                            <button class="btn btn-outline-light me-3 mb-2">
+                                <i class="fab fa-cc-mastercard payment-icon"></i> Mastercard
+                            </button>
+                            <button class="btn btn-outline-light me-3 mb-2">
+                                <i class="fab fa-cc-paypal payment-icon"></i> PayPal
+                            </button>
+                            <button class="btn btn-outline-light me-3 mb-2">
+                                <i class="fab fa-cc-apple-pay payment-icon"></i> Apple Pay
+                            </button>
+                        </div>
+                        
+                        <form>
+                            <div class="mb-3">
+                                <label for="cardNumber" class="form-label">Card Number</label>
+                                <input type="text" class="form-control" id="cardNumber" placeholder="1234 5678 9012 3456">
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="expiryDate" class="form-label">Expiry Date</label>
+                                    <input type="text" class="form-control" id="expiryDate" placeholder="MM/YY">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="cvv" class="form-label">CVV</label>
+                                    <input type="text" class="form-control" id="cvv" placeholder="123">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="nameOnCard" class="form-label">Name on Card</label>
+                                <input type="text" class="form-control" id="nameOnCard" placeholder="John Doe">
+                            </div>
+                        </form>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Cart Notification -->
+    <div class="alert alert-success cart-notification">
+        <i class="fas fa-check-circle me-2"></i> Product added to cart!
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Cart functionality
+        let cart = [];
+        
+        // DOM Elements
+        const mainPage = document.getElementById('main-page');
+        const productDetailPage = document.getElementById('product-detail-page');
+        const cartCountElements = document.querySelectorAll('#cart-count, #cart-count-detail');
+        const cartNotification = document.querySelector('.cart-notification');
+        
+        // Initialize event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add to cart buttons on main page
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', function() {
+                    const productCard = this.closest('.product-card');
+                    const productId = productCard.getAttribute('data-id');
+                    const productTitle = productCard.querySelector('.card-title').textContent;
+                    const productPrice = parseFloat(productCard.querySelector('.price').textContent.replace('$', ''));
+                    const productImage = productCard.querySelector('.card-img-top').src;
+                    
+                    addToCart(productId, productTitle, productPrice, productImage);
+                    showCartNotification();
+                });
+            });
+            
+            // Add to cart button on detail page
+            document.querySelector('.add-to-cart-detail')?.addEventListener('click', function() {
+                const productId = "1"; // Would be dynamic in real app
+                const productTitle = document.getElementById('detail-product-title').textContent;
+                const productPrice = parseFloat(document.getElementById('detail-product-price').textContent.replace('$', ''));
+                const productImage = document.getElementById('main-product-image').src;
+                const quantity = parseInt(document.querySelector('.quantity-selector input').value);
+                
+                addToCart(productId, productTitle, productPrice, productImage, quantity);
+                showCartNotification();
+            });
+            
+            // Product card click handlers
+            document.querySelectorAll('.product-card').forEach(card => {
+                card.addEventListener('click', function(e) {
+                    // Don't navigate if clicking on the add to cart button
+                    if (!e.target.classList.contains('add-to-cart') && !e.target.closest('.add-to-cart')) {
+                        const productId = this.getAttribute('data-id');
+                        showProductDetail(productId);
+                    }
+                });
+            });
+            
+            // Quantity selector buttons
+            document.querySelector('.quantity-selector .plus')?.addEventListener('click', function() {
+                const input = document.querySelector('.quantity-selector input');
+                input.value = parseInt(input.value) + 1;
+            });
+            
+            document.querySelector('.quantity-selector .minus')?.addEventListener('click', function() {
+                const input = document.querySelector('.quantity-selector input');
+                if (parseInt(input.value) > 1) {
+                    input.value = parseInt(input.value) - 1;
+                }
+            });
+            
+            // Size selector buttons
+            document.querySelectorAll('.size-options .btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    document.querySelectorAll('.size-options .btn').forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        });
+        
+        // Show product detail page
+        function showProductDetail(productId) {
+            mainPage.style.display = 'none';
+            productDetailPage.style.display = 'block';
+            
+            // In a real app, we would fetch product details from backend
+            // For this demo, we're just showing the detail page with dummy data
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+        
+        // Show main page
+        function showMainPage() {
+            productDetailPage.style.display = 'none';
+            document.getElementById('cart-page').style.display = 'none';
+            mainPage.style.display = 'block';
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+        
+        // Add item to cart
+        function addToCart(id, title, price, image, quantity = 1) {
+            // Check if item already exists in cart
+            const existingItem = cart.find(item => item.id === id);
+            
+            if (existingItem) {
+                existingItem.quantity += quantity;
+            } else {
+                cart.push({
+                    id,
+                    title,
+                    price,
+                    image,
+                    quantity
+                });
+            }
+            
+            updateCartCount();
+        }
+        
+        // Update cart count display
+        function updateCartCount() {
+            const count = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCountElements.forEach(element => {
+                element.textContent = count;
+            });
+        }
+        
+        // Show cart notification
+        function showCartNotification() {
+            cartNotification.style.display = 'block';
+            setTimeout(() => {
+                cartNotification.style.display = 'none';
+            }, 3000);
+        }
+        
+        // Toggle cart visibility
+        function toggleCart() {
+            mainPage.style.display = 'none';
+            productDetailPage.style.display = 'none';
+            document.getElementById('cart-page').style.display = 'block';
+            renderCart();
+        }
+
+        // Render cart contents
+        function renderCart() {
+            const container = document.getElementById('cart-items-container');
+            let html = '';
+            let total = 0;
+            
+            if (cart.length === 0) {
+                html = '<p>Your cart is empty</p>';
+            } else {
+                cart.forEach(item => {
+                    total += item.price * item.quantity;
+                    html += `
+                        <div class="cart-item mb-3 p-3" style="background: var(--dark); border-radius: 8px;">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center">
+                                    <img src="${item.image}" alt="${item.title}" style="width: 80px; height: 80px; object-fit: cover; margin-right: 15px;">
+                                    <div>
+                                        <h5>${item.title}</h5>
+                                        <p>${item.price.toFixed(2)} x ${item.quantity}</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <button class="btn btn-danger btn-sm" onclick="removeFromCart('${item.id}')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>`;
+                });
+            }
+            
+            container.innerHTML = html;
+            document.getElementById('cart-total').textContent = total.toFixed(2);
+        }
+
+        // Remove item from cart
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            updateCartCount();
+            renderCart();
+        }
+
+        // Checkout function
+        function checkout() {
+            alert('Proceeding to checkout with ' + cart.length + ' items');
+            // In a real app, this would redirect to payment page
+        }
+
+        // Change product image when clicking thumbnails
+        function changeImage(element) {
+            document.querySelectorAll('.product-thumbnails img').forEach(img => {
+                img.classList.remove('active');
+            });
+            element.classList.add('active');
+            document.getElementById('main-product-image').src = element.src;
+        }
+    </script>
+</body>
+</html>
